@@ -6,7 +6,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  use 'dracula/vim'
+  use 'folke/tokyonight.nvim'
   use {
       'ThePrimeagen/harpoon',
       requires = { {'nvim-lua/plenary.nvim'} }
