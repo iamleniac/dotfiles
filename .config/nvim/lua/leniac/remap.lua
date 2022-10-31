@@ -5,11 +5,24 @@ local tnoremap = require("leniac.keymap").tnoremap
 
 local builtin = require("telescope.builtin")
 
+-- netrw
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
+
+-- exit erminal on ESC
 tnoremap("<Esc>", "<C-\\><C-n>")
+
+nnoremap("<leader>f", "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F")
 
 -- toggleterm
 nnoremap("<leader>g", ":lua require(\"leniac.lazygit\").toggle()<CR>")
+
+-- trouble
+nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
+nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
+nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
+nnoremap("gR", "<cmd>TroubleToggle lsp_references<cr>")
 
 -- split screen
 nnoremap('<leader>sv', '<C-w>v')
@@ -35,15 +48,3 @@ nnoremap("<leader>h4", ":lua require(\"harpoon.ui\").nav_file(4)<CR>")
 nnoremap("<leader>he", ":lua require(\"harpoon.ui\").nav_next()<CR>")
 nnoremap("<leader>hq", ":lua require(\"harpoon.ui\").nav_prev()<CR>")
 
--- nvim-tree
-nnoremap("<leader>tt", ":NvimTreeToggle<CR>")
-nnoremap("<leader>tf", ":NvimTreeFocus<CR>")
-nnoremap("<leader>ts", ":NvimTreeFindFile<CR>")
-nnoremap("<leader>tc", ":NvimTreeCollapse<CR>")
-
--- coc
-inoremap("<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<CR>"]], {silent = true, expr = true, replace_keycodes = false})
-nnoremap("<leader>f", ":CocCommand prettier.forceFormatDocument<CR>")
-vnoremap("<leader>f", ":CocCommand prettier.forceFormatDocument")
-nnoremap("<leader>af", ":CocCommand eslint.executeAutofix<CR>")
-vnoremap("<leader>af", ":CocCommand eslint.executeAutofix<CR>")
