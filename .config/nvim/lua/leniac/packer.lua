@@ -15,16 +15,6 @@ return require('packer').startup(function(use)
   use 'onsails/lspkind.nvim'
   -- Formatter
   use 'jose-elias-alvarez/null-ls.nvim'
-  -- Auto-save
-  use {
-	  "Pocco81/auto-save.nvim",
-	  config = function()
-        require("auto-save").setup {
-			-- your config goes here
-			-- or just leave it empty :)
-		}
-	  end,
-  }
   -- Trouble
   use {
       "folke/trouble.nvim",
