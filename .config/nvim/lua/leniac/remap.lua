@@ -11,9 +11,9 @@ nnoremap("<leader>pv", "<cmd>Ex<CR>")
 -- exit erminal on ESC
 tnoremap("<Esc>", "<C-\\><C-n>")
 
-nnoremap("<leader>f", "mF:%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F")
-
 -- toggleterm
+nnoremap("<C-t>", ":ToggleTerm<CR>")
+inoremap("<C-t>", ":ToggleTerm<CR>")
 nnoremap("<leader>g", ":lua require(\"leniac.lazygit\").toggle()<CR>")
 
 -- trouble
