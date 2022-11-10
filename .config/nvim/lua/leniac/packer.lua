@@ -13,8 +13,8 @@ return require('packer').startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'onsails/lspkind.nvim'
-  -- Formatter
-  use 'jose-elias-alvarez/null-ls.nvim'
+  -- Linter
+  use 'mfussenegger/nvim-lint'
   -- Trouble
   use {
       "folke/trouble.nvim",

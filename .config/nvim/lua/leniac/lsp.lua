@@ -7,7 +7,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'eslint' }
+local servers = { 'gopls', 'eslint', 'tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -31,6 +31,27 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },    
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }),
   formatting = {
     format = lspkind.cmp_format({
@@ -50,11 +71,9 @@ cmp.setup {
   },
 }
 
--- null-ls setup
-require("null-ls").setup({
-    sources = {
-        require("null-ls").builtins.formatting.prettierd,
-        require("null-ls").builtins.code_actions.eslint_d,
-        require("null-ls").builtins.diagnostics.eslint_d,
-    },
-})
+-- linter setup
+require('lint').linters_by_ft = {
+    typescript = {'eslint'}
+}
+
+
