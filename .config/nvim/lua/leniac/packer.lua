@@ -17,6 +17,9 @@ return require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
   -- Linter
   use 'mfussenegger/nvim-lint'
+  -- Formatter
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'MunifTanjim/prettier.nvim'
   -- Trouble
   use {
       "folke/trouble.nvim",

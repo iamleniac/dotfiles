@@ -14,13 +14,22 @@ end
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'eslint', 'tsserver' }
+local servers = { 'gopls', 'eslint' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
   }
 end
+
+-- remove tsserver format capability
+lspconfig.tsserver.setup({
+    capabilities = capabilities,
+    on_attach = function(client)
+        client.server_capabilities.document_formatting = false
+    end,
+})
+
 -- luasnip setup
 local luasnip = require('luasnip')
 -- nvim-cmp setup
@@ -82,4 +91,9 @@ require('lint').linters_by_ft = {
     typescript = {'eslint'}
 }
 
+-- formatter setup
+require('null-ls').setup()
 
+require('prettier').setup({
+    bin = 'prettierd'
+})
