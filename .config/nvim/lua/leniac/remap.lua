@@ -1,11 +1,38 @@
 local nnoremap = require("leniac.keymap").nnoremap
 local inoremap = require("leniac.keymap").inoremap
+local vnoremap = require("leniac.keymap").vnoremap
 local tnoremap = require("leniac.keymap").tnoremap
 
 local builtin = require("telescope.builtin")
 
 -- netrw
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
+
+-- move
+vnoremap("J", ":m '>+1<CR>gv=gv")
+vnoremap("K", ":m '<-2<CR>gv=gv")
+
+-- J stay in place
+nnoremap("J", "mzJ`z")
+
+-- avoid jumping C-z and C-u
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
+
+-- avoid jumping search
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
+
+-- yank to clipboard: asbjornHaland
+nnoremap("<leader>y", [["+y]])
+vnoremap("<leader>y", [["+y]])
+nnoremap("<leader>Y", [["+Y]])
+
+-- prevent Q
+nnoremap("Q", "<nop>")
+
+-- quick replace
+nnoremap("<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- exit erminal on ESC
 tnoremap("<Esc>", "<C-\\><C-n>")
@@ -25,7 +52,7 @@ nnoremap("gR", "<cmd>TroubleToggle lsp_references<cr>")
 
 -- split screen
 nnoremap('<leader>sv', '<C-w>v')
-nnoremap('<leader>sh', '<C-w>s') 
+nnoremap('<leader>sh', '<C-w>s')
 nnoremap("<C-h>", "<C-w>h")
 nnoremap("<C-j>", "<C-w>j")
 nnoremap("<C-k>", "<C-w>k")

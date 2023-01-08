@@ -29,6 +29,10 @@ return require('packer').startup(function(use)
     {'rafamadriz/friendly-snippets'},
   }
 }
+
+ -- treesitter
+ use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
+
   -- Trouble
   use {
       "folke/trouble.nvim",
