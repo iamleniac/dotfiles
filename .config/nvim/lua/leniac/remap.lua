@@ -1,6 +1,5 @@
 local nnoremap = require("leniac.keymap").nnoremap
 local inoremap = require("leniac.keymap").inoremap
-local vnoremap = require("leniac.keymap").vnoremap
 local tnoremap = require("leniac.keymap").tnoremap
 
 local builtin = require("telescope.builtin")
