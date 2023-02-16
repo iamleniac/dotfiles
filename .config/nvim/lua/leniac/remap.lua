@@ -2,8 +2,14 @@ local nnoremap = require("leniac.keymap").nnoremap
 local inoremap = require("leniac.keymap").inoremap
 local vnoremap = require("leniac.keymap").vnoremap
 local tnoremap = require("leniac.keymap").tnoremap
+local neotest = require("leniac.neotest")
+local lazygit = require("leniac.lazygit")
+
+local ui = require("harpoon.ui")
+local mark = require("harpoon.mark")
 
 local builtin = require("telescope.builtin")
+
 
 -- netrw
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
@@ -40,7 +46,7 @@ tnoremap("<Esc>", "<C-\\><C-n>")
 -- toggleterm
 nnoremap("<C-t>", ":ToggleTerm<CR>")
 inoremap("<C-t>", ":ToggleTerm<CR>")
-nnoremap("<leader>g", ":lua require(\"leniac.lazygit\").toggle()<CR>")
+nnoremap("<leader>g", lazygit.toggle)
 
 -- trouble
 nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
@@ -65,12 +71,17 @@ nnoremap("<leader>fb", builtin.buffers)
 nnoremap("<leader>fh", builtin.help_tags)
 
 -- harpoon
-nnoremap("<leader>hm", ":lua require(\"harpoon.ui\").toggle_quick_menu()<CR>")
-nnoremap("<leader>hh", ":lua require(\"harpoon.mark\").add_file()<CR>")
-nnoremap("<leader>h1", ":lua require(\"harpoon.ui\").nav_file(1)<CR>")
-nnoremap("<leader>h2", ":lua require(\"harpoon.ui\").nav_file(2)<CR>")
-nnoremap("<leader>h3", ":lua require(\"harpoon.ui\").nav_file(3)<CR>")
-nnoremap("<leader>h4", ":lua require(\"harpoon.ui\").nav_file(4)<CR>")
-nnoremap("<leader>he", ":lua require(\"harpoon.ui\").nav_next()<CR>")
-nnoremap("<leader>hq", ":lua require(\"harpoon.ui\").nav_prev()<CR>")
+-- nnoremap("<leader>hm", ":lua require(\"harpoon.ui\").toggle_quick_menu()<CR>")
+nnoremap("<leader>hm", ui.toggle_quick_menu)
+nnoremap("<leader>hh", mark.add_file)
+nnoremap("<leader>h1", function() ui.nav_file(1) end)
+nnoremap("<leader>h2", function() ui.nav_file(2) end)
+nnoremap("<leader>h3", function() ui.nav_file(3) end)
+nnoremap("<leader>h4", function() ui.nav_file(4) end)
+nnoremap("<leader>he", ui.nav_next)
+nnoremap("<leader>hq", ui.nav_prev)
 
+-- neotest
+nnoremap("<leader>t", neotest.run_nearest)
+nnoremap("<leader>tf", neotest.run_file)
+nnoremap("<leader>tr", neotest.toggle_output)
