@@ -9,7 +9,7 @@ neotest.setup({
 local M = {}
 
 local function run_nearest()
-    neotest.run.run()
+    neotest.run.run({ extra_args = { "-count=1" } })
     neotest.output_panel.open()
 end
 
