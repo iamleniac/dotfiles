@@ -132,4 +132,8 @@ if [ -f '/home/leni/google-cloud-sdk/path.zsh.inc' ]; then . '/home/leni/google-
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/leni/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/leni/google-cloud-sdk/completion.zsh.inc'; fi
 
- export PATH="${HOME}/go/bin:${PATH}"
+export PATH="${HOME}/go/bin/:${PATH}"
+
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
