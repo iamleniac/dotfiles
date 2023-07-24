@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SCRIPTSDIR=$HOME/.config/hypr/scripts
+
+export XKB_DEFAULT_LAYOUT=us
+export XKB_DEFAULT_VARIANT=altgr-intl
+export XKB_DEFAULT_OPTIONS=compose:menu,level3:ralt_switch
+
+# kill already running processes
+_ps=(waybar)
+for _prs in "${_ps[@]}"; do
+	if [[ $(pidof ${_prs})  ]]; then
+		killall -9 ${_prs}
+	fi
+done
+
+# Launch waybar
+
+${SCRIPTSDIR}/statusbar &

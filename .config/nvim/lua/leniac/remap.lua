@@ -2,11 +2,14 @@ local nnoremap = require("leniac.keymap").nnoremap
 local inoremap = require("leniac.keymap").inoremap
 local vnoremap = require("leniac.keymap").vnoremap
 local tnoremap = require("leniac.keymap").tnoremap
+local xnoremap = require("leniac.keymap").xnoremap
 local neotest = require("leniac.neotest")
 local lazygit = require("leniac.lazygit")
 
 local ui = require("harpoon.ui")
 local mark = require("harpoon.mark")
+
+local flash = require("flash")
 
 local builtin = require("telescope.builtin")
 
@@ -71,7 +74,6 @@ nnoremap("<leader>fb", builtin.buffers)
 nnoremap("<leader>fh", builtin.help_tags)
 
 -- harpoon
--- nnoremap("<leader>hm", ":lua require(\"harpoon.ui\").toggle_quick_menu()<CR>")
 nnoremap("<leader>hm", ui.toggle_quick_menu)
 nnoremap("<leader>hh", mark.add_file)
 nnoremap("<leader>h1", function() ui.nav_file(1) end)
@@ -80,6 +82,12 @@ nnoremap("<leader>h3", function() ui.nav_file(3) end)
 nnoremap("<leader>h4", function() ui.nav_file(4) end)
 nnoremap("<leader>he", ui.nav_next)
 nnoremap("<leader>hq", ui.nav_prev)
+
+-- flash
+nnoremap("s", function() flash.jump() end)
+nnoremap("S", function() flash.treesitter() end)
+xnoremap("s", function() flash.jump() end)
+xnoremap("S", function() flash.treesitter() end)
 
 -- neotest
 nnoremap("<leader>t", neotest.run_nearest)

@@ -1,0 +1,56 @@
+{
+  "wlr/workspaces": {
+    "format": "{}",
+    "all-outputs": true,
+    "sort-by-number": true,
+    "on-click": "activate",
+  },
+  "custom/power": {
+    "format": "<span font='15' rise='1000'>襤</span>",
+    "tooltip": false,
+    "on-click": "wlogout",
+  },
+  "battery": {
+    "interval": 60,
+    "align": 0,
+    "rotate": 0,
+    "full-at": 100,
+    "design-capacity": false,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "<span font='12' rise='1000'>{icon}</span> {capacity}%",
+    "format-charging": "<span font='11' rise='1000'> </span>{capacity}%",
+    "format-plugged": "<span font='10' rise='1300'></span> {capacity}%",
+    "format-full": "<span font='11' rise='500'>{icon}</span>",
+    "format-alt": "<span font='11' rise='1000'>{icon}</span> {time}",
+    "format-icons": ["", "", "", "", ""],
+    "format-time": "{H}h {M}min",
+    "tooltip": true
+  },
+  "clock": {
+    "interval": 60,
+    "align": 0,
+    "rotate": 0,
+    "format": "{:%d/%m - %H:%M}",
+    "format-alt": "{:%A, %d/%m/%Y - %H:%M}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "network": {
+    "interval": 5,
+    "format-wifi": "<span font='10' rise='2000'></span> {signalStrength}%",
+    "format-ethernet": "<span font='11' rise='1000'></span> {ipaddr}/{cidr}",
+    "format-linked": "<span font='11' rise='1000'></span> {ifname} (No IP)",
+    "format-disconnected": "<span font='11' rise='1000'>睊</span> Disconnected",
+    "format-disabled": "<span font='11' rise='1000'>睊</span> Disabled",
+    "format-alt": "<span font='11' rise='1000'></span> {bandwidthUpBits} | <span font='13' rise='1000'></span> {bandwidthDownBits}",
+    "tooltip-format": "<span font='11' rise='1000'></span> {ifname} {essid} via {gwaddr}",
+    "on-click-right": "iwgtk"
+  },
+  "tray": {
+    "spacing": 10,
+    "icon-size": 13
+  },
+}

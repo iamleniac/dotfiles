@@ -1,0 +1,15 @@
+{
+  "include": "~/.config/hypr/waybar/modules",
+  "layer": "top",
+  "passthrough": false,
+  "position": "bottom",
+  "fixed-center": false,
+  "spacing": 3,
+  "gtk-layer-shell": true,
+  "margin": 5,
+
+  "modules-left": ["wlr/workspaces"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": ["network", "battery", "tray", "clock", "custom/power"]
+}
+

@@ -41,6 +41,9 @@ return require('packer').startup(function(use)
         }
     }
 
+    -- flash
+    use "folke/flash.nvim"
+
     -- treesitter
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
@@ -70,5 +73,4 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
-    use 'ggandor/leap.nvim'
 end)
