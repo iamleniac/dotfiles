@@ -4,6 +4,7 @@ alias aliases='vim ~/.oh-my-zsh/custom/aliases.zsh'
 
 # editor
 alias vim=nvim
+alias v=vim
 
 # npm scripts
 alias scripts='cat package.json | fx .scripts'

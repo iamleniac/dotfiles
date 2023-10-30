@@ -1,1 +1,1 @@
-require("leniac")
+require('leniac')
