@@ -138,9 +138,12 @@ export PATH="${HOME}/go/bin/:${PATH}"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-source /usr/share/chruby/chruby.sh
+# Tmux sessionizer
+export PATH="${HOME}/.local/scripts/:${PATH}"
+bindkey -s ^f "tmux-sessionizer\n"
 
 # filia stuff
+source /usr/share/chruby/chruby.sh
 export GOPRIVATE=dev.azure.com/advance52
 chruby ruby-3.1.2
 
