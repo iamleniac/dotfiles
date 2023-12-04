@@ -139,3 +139,8 @@ export PATH="${HOME}/go/bin/:${PATH}"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 source /usr/share/chruby/chruby.sh
+
+# filia stuff
+export GOPRIVATE=dev.azure.com/advance52
+chruby ruby-3.1.2
+

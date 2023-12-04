@@ -96,5 +96,15 @@ return {
             on_attach = on_attach,
             filetypes = { 'js', 'ts', 'jsx', 'tsx', 'mjs', 'cjs' },
         }
+        require('lspconfig').gopls.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { 'go', 'gomod' },
+            settings = {
+                gopls = {
+                    env = { GOFLAGS = '-tags=e2e_tests' }
+                }
+            }
+        }
     end
 }

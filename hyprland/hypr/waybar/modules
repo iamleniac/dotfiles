@@ -1,8 +1,8 @@
 {
-  "wlr/workspaces": {
-    "format": "{}",
+  "hyprland/workspaces": {
+    "format": "{id}",
     "all-outputs": true,
-    "sort-by-number": true,
+    "sort-by": "number",
     "on-click": "activate",
   },
   "custom/power": {

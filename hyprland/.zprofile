@@ -22,4 +22,7 @@ export XDG_SESSION_TYPE="wayland"
 export XDG_SESSION_DESKTOP="Hyprland"
 export XDG_CURRENT_DESKTOP="Hyprland"
 
+if [ -n "$TMUX" ]; then
+else
 exec Hyprland
+fi
