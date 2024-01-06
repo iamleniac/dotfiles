@@ -136,7 +136,10 @@ export PATH="${HOME}/go/bin/:${PATH}"
 
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="${HOME}/.rvm/bin/:${PATH}"
+
+# Add platformio
+export PATH="${HOME}/.platformio/penv/bin/:${PATH}"
 
 # Tmux sessionizer
 export PATH="${HOME}/.local/scripts/:${PATH}"

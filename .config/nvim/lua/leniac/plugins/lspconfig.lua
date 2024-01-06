@@ -12,6 +12,7 @@ return {
 
         -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',
+        'ranjithshegde/ccls.nvim'
     },
     config = function()
         -- Diagnostic keymaps
@@ -90,6 +91,15 @@ return {
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
             end
+        }
+        require('ccls').setup {
+            lsp = {
+                lspconfig = {
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' }
+                }
+            }
         }
         require('lspconfig').tsserver.setup {
             capabilities = capabilities,
