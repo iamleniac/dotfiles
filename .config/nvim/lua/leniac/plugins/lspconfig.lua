@@ -112,7 +112,7 @@ return {
             filetypes = { 'go', 'gomod' },
             settings = {
                 gopls = {
-                    env = { GOFLAGS = '-tags=e2e_tests' }
+                    env = { GOFLAGS = '-tags=e2e_tests,transfer_tests,integration,integration_tests' }
                 }
             }
         }
