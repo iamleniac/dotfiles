@@ -66,6 +66,8 @@ return {
                     telemetry = { enable = false },
                 },
             },
+            clangd = {},
+            rust_analyzer = {},
         }
 
         -- Setup neovim lua configuration
@@ -101,11 +103,6 @@ return {
                 }
             }
         }
-        require('lspconfig').tsserver.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { 'js', 'ts', 'jsx', 'tsx', 'mjs', 'cjs' },
-        }
         require('lspconfig').gopls.setup {
             capabilities = capabilities,
             on_attach = on_attach,
@@ -115,6 +112,11 @@ return {
                     env = { GOFLAGS = '-tags=e2e_tests,transfer_tests,integration,integration_tests' }
                 }
             }
+        }
+        require('lspconfig').tsserver.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { 'js', 'ts', 'jsx', 'tsx', 'mjs', 'cjs' },
         }
     end
 }
