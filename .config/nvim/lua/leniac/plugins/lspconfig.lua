@@ -22,7 +22,7 @@ return {
         vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
         -- [[ Configure LSP ]]
         --  This function gets run when an LSP connects to a particular buffer.
-        local on_attach = function(_, bufnr)
+        local on_attach = function(client, bufnr)
             local nmap = function(keys, func, desc)
                 if desc then
                     desc = 'LSP: ' .. desc
@@ -68,6 +68,7 @@ return {
             },
             clangd = {},
             rust_analyzer = {},
+            solargraph = {},
         }
 
         -- Setup neovim lua configuration
@@ -116,7 +117,31 @@ return {
         require('lspconfig').tsserver.setup {
             capabilities = capabilities,
             on_attach = on_attach,
-            filetypes = { 'js', 'ts', 'jsx', 'tsx', 'mjs', 'cjs' },
+            filetypes = {
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescript.tsx",
+                "typescriptreact"
+            },
+        }
+        require('lspconfig').eslint.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = {
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescript.tsx",
+                "typescriptreact"
+            },
+        }
+        require('lspconfig').prismals.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { "prisma" },
         }
     end
 }

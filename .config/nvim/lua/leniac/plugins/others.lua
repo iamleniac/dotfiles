@@ -1,4 +1,4 @@
 return {
-    'tpope/vim-surround',
-    { 'numToStr/Comment.nvim', opts = {} },
+	'tpope/vim-surround',
+	{ 'numToStr/Comment.nvim', opts = {} }
 }
