@@ -25,3 +25,5 @@ vim.opt.colorcolumn = '80'
 vim.g.mapleader = ' '
 
 vim.o.clipboard = 'unnamedplus'
+
+vim.opt.writebackup = false

@@ -1,147 +1,91 @@
 return {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-        -- Automatically install LSPs to stdpath for neovim
-        { 'williamboman/mason.nvim', config = true },
-        'williamboman/mason-lspconfig.nvim',
+  'neovim/nvim-lspconfig',
+  dependencies = {
+    { 'williamboman/mason.nvim', config = true },
+    'williamboman/mason-lspconfig.nvim',
+    'nvimtools/none-ls.nvim',
+    'j-hui/fidget.nvim',
+    'folke/neodev.nvim',
+    'hrsh7th/cmp-nvim-lsp',
+    -- 'creativenull/efmls-configs-nvim',
+    -- 'lukas-reineke/lsp-format.nvim',
+  },
+  config = function()
+    -- require('lsp-format').setup {}
+    -- Globals
+    local lspconfig = require 'lspconfig'
 
-        -- Useful status updates for LSP
-        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    local servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enabled = true },
+          },
+        },
+      },
+      ts_ls = {},
+      gopls = {},
+    }
 
-        -- Additional lua configuration, makes nvim stuff amazing!
-        'folke/neodev.nvim',
-        'ranjithshegde/ccls.nvim'
-    },
-    config = function()
-        -- Diagnostic keymaps
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-        vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-        -- [[ Configure LSP ]]
-        --  This function gets run when an LSP connects to a particular buffer.
-        local on_attach = function(client, bufnr)
-            local nmap = function(keys, func, desc)
-                if desc then
-                    desc = 'LSP: ' .. desc
-                end
+    -- local on_attach = function(client, buffnr)
+    --   require('lsp-format').on_attach(client, buffnr)
+    -- end
 
-                vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-            end
+    -- Setup neovim lua configuration
+    require('neodev').setup {}
 
-            nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-            nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+    -- Setup code completion capabilities
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-            nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-            nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-            nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-            nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-            nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-            nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    -- Setup Mason
+    local mason_lspconfig = require 'mason-lspconfig'
 
-            -- See `:help K` for why this keymap
-            nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-            nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
+    mason_lspconfig.setup {
+      ensure_installed = vim.tbl_keys(servers),
+    }
 
-            -- Create a command `:Format` local to the LSP buffer
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function()
-                    vim.lsp.buf.format()
-                end
-            })
-
-            vim.keymap.set({ 'v', 'n' }, '=',
-                function()
-                    vim.lsp.buf.format()
-                end
-            )
-        end
-
-        local servers = {
-            lua_ls = {
-                Lua = {
-                    workspace = { checkThirdParty = false },
-                    telemetry = { enable = false },
-                },
-            },
-            clangd = {},
-            rust_analyzer = {},
-            solargraph = {},
+    mason_lspconfig.setup_handlers {
+      function(server_name)
+        lspconfig[server_name].setup {
+          capabilities = capabilities,
+          settings = (servers[server_name] or {}).settings,
+          filetypes = (servers[server_name] or {}).filetypes,
         }
+      end,
+    }
 
-        -- Setup neovim lua configuration
-        require('neodev').setup()
-
-        -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-        -- Ensure the servers above are installed
-        local mason_lspconfig = require 'mason-lspconfig'
-
-        mason_lspconfig.setup {
-            ensure_installed = vim.tbl_keys(servers),
-        }
-
-        mason_lspconfig.setup_handlers {
-            function(server_name)
-                require('lspconfig')[server_name].setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers[server_name],
-                    filetypes = (servers[server_name] or {}).filetypes,
-                }
-            end
-        }
-        require('ccls').setup {
-            lsp = {
-                lspconfig = {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' }
-                }
-            }
-        }
-        require('lspconfig').gopls.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { 'go', 'gomod' },
-            settings = {
-                gopls = {
-                    env = { GOFLAGS = '-tags=e2e_tests,transfer_tests,integration,integration_tests' }
-                }
-            }
-        }
-        require('lspconfig').tsserver.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = {
-                "javascript",
-                "javascriptreact",
-                "javascript.jsx",
-                "typescript",
-                "typescript.tsx",
-                "typescriptreact"
-            },
-        }
-        require('lspconfig').eslint.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = {
-                "javascript",
-                "javascriptreact",
-                "javascript.jsx",
-                "typescript",
-                "typescript.tsx",
-                "typescriptreact"
-            },
-        }
-        require('lspconfig').prismals.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { "prisma" },
-        }
-    end
+    -- lspconfig.efm.setup({
+    -- 	init_options = { documentFormatting = true, documentRangeFormatting = true },
+    -- 	on_attach = require("lsp-format").on_attach,
+    -- 	capabilities = capabilities,
+    -- 	settings = {
+    -- 		rootMarkers = { ".git/", "package.json", "Makefile", ".stylua.toml" },
+    --
+    -- 		languages = {
+    -- 			typescript = {
+    -- 				require("efmls-configs.linters.eslint_d"),
+    -- 				require("efmls-configs.formatters.prettier_d"),
+    -- 			},
+    -- 			typescriptreact = {
+    -- 				require("efmls-configs.linters.eslint_d"),
+    -- 				require("efmls-configs.formatters.prettier_d"),
+    -- 			},
+    -- 			javascript = {
+    -- 				require("efmls-configs.linters.eslint_d"),
+    -- 				require("efmls-configs.formatters.prettier_d"),
+    -- 			},
+    -- 			javascriptreact = {
+    -- 				require("efmls-configs.linters.eslint_d"),
+    -- 				require("efmls-configs.formatters.prettier_d"),
+    -- 			},
+    -- 			lua = {
+    -- 				require("efmls-configs.linters.luacheck"),
+    -- 				require("efmls-configs.formatters.stylua"),
+    -- 			},
+    -- 		},
+    -- 	},
+    -- })
+  end,
 }

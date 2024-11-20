@@ -9,6 +9,6 @@ return {
                 colors.fg_gutter = colors.orange
             end,
         })
-        vim.cmd([[colorscheme tokyonight]])
+        vim.cmd([[colorscheme tokyonight-storm]])
     end
 }
