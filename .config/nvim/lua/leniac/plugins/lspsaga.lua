@@ -5,7 +5,11 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    require('lspsaga').setup {}
+    require('lspsaga').setup {
+      lightbulb = {
+        sign = false,
+      },
+    }
 
     vim.keymap.set('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
     vim.keymap.set('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
