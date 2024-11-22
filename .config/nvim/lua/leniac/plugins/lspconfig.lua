@@ -55,37 +55,5 @@ return {
         }
       end,
     }
-
-    -- lspconfig.efm.setup({
-    -- 	init_options = { documentFormatting = true, documentRangeFormatting = true },
-    -- 	on_attach = require("lsp-format").on_attach,
-    -- 	capabilities = capabilities,
-    -- 	settings = {
-    -- 		rootMarkers = { ".git/", "package.json", "Makefile", ".stylua.toml" },
-    --
-    -- 		languages = {
-    -- 			typescript = {
-    -- 				require("efmls-configs.linters.eslint_d"),
-    -- 				require("efmls-configs.formatters.prettier_d"),
-    -- 			},
-    -- 			typescriptreact = {
-    -- 				require("efmls-configs.linters.eslint_d"),
-    -- 				require("efmls-configs.formatters.prettier_d"),
-    -- 			},
-    -- 			javascript = {
-    -- 				require("efmls-configs.linters.eslint_d"),
-    -- 				require("efmls-configs.formatters.prettier_d"),
-    -- 			},
-    -- 			javascriptreact = {
-    -- 				require("efmls-configs.linters.eslint_d"),
-    -- 				require("efmls-configs.formatters.prettier_d"),
-    -- 			},
-    -- 			lua = {
-    -- 				require("efmls-configs.linters.luacheck"),
-    -- 				require("efmls-configs.formatters.stylua"),
-    -- 			},
-    -- 		},
-    -- 	},
-    -- })
   end,
 }
