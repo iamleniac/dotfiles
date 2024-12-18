@@ -26,6 +26,7 @@ return {
       },
       ts_ls = {},
       gopls = {},
+      solargraph = {},
     }
 
     -- local on_attach = function(client, buffnr)
