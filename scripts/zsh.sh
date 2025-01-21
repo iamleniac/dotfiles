@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 DOTFILESDIR=${HOME}/workspace/personal/dotfiles
