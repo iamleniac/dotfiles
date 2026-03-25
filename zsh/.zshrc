@@ -1,3 +1,6 @@
+# auto cd
+setopt AUTO_CD
+
 # Set Default Editor
 export EDITOR='nvim'
 
